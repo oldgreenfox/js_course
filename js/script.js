@@ -1,17 +1,13 @@
-'use strict';
-const numberOfFilms = Number(prompt('Скільки фільмів ви уже подивились?'));
-const personalMovieDB = {
-	count : numberOfFilms,
-	movies : {},
-	actors : {},
-	genres : [],
-	private : false
-};
-const film1 = prompt('Один з останніх переглянутих фільмів?');
-const vote1 = prompt('Оцініть його');
-const film2 = prompt('Один з останніх переглянутих фільмів?');
-const vote2 = prompt('Оцініть його');
-
-personalMovieDB.movies[film1] = vote1;
-personalMovieDB.movies[film2] = vote2;
-console.log(personalMovieDB);
+const lines = 5;
+let result = '';
+// Проверяется именно переменная result, формируйте строку в ней
+for(let i = 0; i <= lines; i++){
+	for(let j = lines; j > i; j--){
+		result += ' ';
+	}
+	for (let k = i * 2 + 1; k > 0; k--){
+		result += '*';
+	}
+	result += '\n';
+}
+console.log(result);
