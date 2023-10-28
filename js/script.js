@@ -7,7 +7,7 @@
 возвращаем пользователя к вопросам опять
 
 3) При помощи условий проверить  personalMovieDB.count, и если он меньше 10 - вывести сообщение
-"Просмотрено довольно мало фильмов", если от 10 до 30 - "Вы классический зритель", а если больше - 
+ если от 10 до 30 - "Вы классический зритель", а если больше - 
 "Вы киноман". А если не подошло ни к одному варианту - "Произошла ошибка"
 
 4) Потренироваться и переписать цикл еще двумя способами*/
@@ -15,8 +15,10 @@
 
 'use strict';
 
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
+let numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+while(!numberOfFilms){
+	numberOfFilms = +prompt('Количество неверное. Сколько фильмов вы уже посмотрели?', '');
+}
 const personalMovieDB = {
     count: numberOfFilms,
     movies: {},
@@ -25,12 +27,43 @@ const personalMovieDB = {
     privat: false
 };
 
-const a = prompt('Один из последних просмотренных фильмов?', ''),
-      b = prompt('На сколько оцените его?', ''),
-      c = prompt('Один из последних просмотренных фильмов?', ''),
-      d = prompt('На сколько оцените его?', '');
+for(let i = 0; i < 2; i++){
+	let a = prompt('Просмотренный фильм №'+(i+1), '');
+	while(!(a && a.trim().length < 50)){
+		a = prompt('Неверное название. Просмотренный фильм №'+(i+1), '');	
+	}	
+	let b = prompt('На сколько оцените его?');
+	while(!(b && b.trim())){
+		b = prompt('Оценка неверна. На сколько оцените его?');
+	}	
+	personalMovieDB.movies[a] = b;
+}
 
-personalMovieDB.movies[a] = b;
-personalMovieDB.movies[c] = d;
+if(personalMovieDB.count >= 0 && personalMovieDB.count < 10){
+	console.log("Просмотрено довольно мало фильмов");
+}else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30){
+	console.log("Вы классический зритель");
+}else if(personalMovieDB.count > 30){
+	console.log("Вы киноман");
+}
 
-console.log(personalMovieDB);
+function showMyDB(hidden){
+	if(!hidden){
+		console.log(personalMovieDB);
+	}
+}
+
+function writeGenres(db){
+	for(let i = 0; i < 3; i++){
+		let a = prompt(`Ваш любимый жанр под номером ${i+1}`, '');	
+		if(!(a && a.trim())){
+			i--;
+		} else {
+			db.genres[i] = a;
+		}
+	}
+}
+
+writeGenres(personalMovieDB.privat);
+
+showMyDB(personalMovieDB);
